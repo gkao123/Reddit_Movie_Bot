@@ -1,2 +1,2 @@
-# PetrosianBot
-Bot to comment Tigran Petrosian's legendary copypasta.
+# Reddit Movie Bot
+Bot in progress.
