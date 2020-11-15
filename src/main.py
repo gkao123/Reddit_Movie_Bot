@@ -9,7 +9,7 @@ import threading
 import logging
 
 log_format = "%(asctime)s: %(threadName)s: %(message)s"
-logging.basicConfig(format=log_format, level=logging.INFO, datefmt="%H:%M:%S")
+logging.basicConfig(format=log_format, level=logging.DEBUG, datefmt="%H:%M:%S")
 logger = logging.getLogger(__name__)
 
 # I've saved my API token information to a .env file, which gets loaded here
@@ -19,7 +19,8 @@ SECRET = os.getenv("CLIENT_SECRET")
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 
-KEYWORDS = ["pipi", "pampers", "tigran", "petrosian"]
+print("CLIENT", CLIENT)
+KEYWORDS = ["!moviebot","pipi", "pampers", "tigran", "petrosian"]
 
 # Set the path absolute path of the chess_post database
 pickle_path = os.path.dirname(os.path.abspath(__file__)) + "/comments.db"
@@ -27,7 +28,7 @@ db = pickledb.load(pickle_path, True)
 
 # Create the reddit object instance using Praw
 reddit = Reddit(
-    user_agent="petrosian_bot",
+    user_agent="movie_bot_015unknown",
     client_id=CLIENT,
     client_secret=SECRET,
     username=USERNAME,
@@ -145,6 +146,7 @@ I suggest all other people who's intrested in this situation, just take a look a
 if __name__ == "__main__":
     logger.info("Main    : Creating threads")
     threads = []
+    """
     chess_posts_thread = threading.Thread(
         target=iterate_posts, args=("chess",), name="chess_posts"
     )
@@ -182,7 +184,14 @@ if __name__ == "__main__":
     threads.append(tournamentchess_posts_thread)
     threads.append(chessbeginners_comments_thread)
     threads.append(tournamentchess_comments_thread)
+"""
+    geoffrey_kao_thread = threading.Thread(
+        target=iterate_comments,
+        args=("geoffreykao",),
+        name="geoffreykao_comments",
+    )
 
+    threads.append(geoffrey_kao_thread)
     logger.info("Main    : Starting threads")
     for thread in threads:
         thread.start()
